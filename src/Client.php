@@ -10,24 +10,28 @@ abstract class Client
 
     abstract public function request($method, array $params = null);
 
-    public function encodeRequest($method, array $params = null)
+    public function createRequest($method, array $params = null, $id = null)
     {
         $data = [];
         $data['jsonrpc'] = self::VERSION;
         $data['method'] = $method;
         if (isset($params)) $data['params'] = $params;
-        $data['id'] = uniqid();
-
-        return json_encode($data);
+        if (isset($id)) $data['id'] = $id;
+        return $data;
     }
 
-    public function decodeResponse($response)
+    public function encodeRequest(array $request)
+    {
+        return json_encode($request);
+    }
+
+    public function decodeResponse(array $request, $response)
     {
         $data = json_decode($response, true);
 
-        if ($data['jsonrpc'] !== self::VERSION)
+        if ($data['jsonrpc'] !== $request['jsonrpc'])
             throw new Exception("Invalid Version.");
-        if ($data['id'] !== $id)
+        if ($data['id'] !== $request['id'])
             throw new Exception("Invalid ID, Expected: {$id}, Got: {$data['id']}.");
         elseif (isset($data['error']))
             throw new Exception($data['error']['message'], $data['error']['code']);
