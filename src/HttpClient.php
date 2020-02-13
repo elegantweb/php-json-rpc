@@ -2,7 +2,7 @@
 
 namespace Elegant\JsonRpc;
 
-use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Client as GuzzleHttpClient;
 
 class HttpClient extends Client
 {
@@ -10,7 +10,7 @@ class HttpClient extends Client
 
     public function __construct($address, array $options = [])
     {
-        $this->httpClient = new HttpClient([
+        $this->httpClient = new GuzzleHttpClient([
             'base_uri' => $address,
             ...$options
         ]);
