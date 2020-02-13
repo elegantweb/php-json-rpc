@@ -1,5 +1,5 @@
 {
-    "name": "elegantweb/php-rpc",
+    "name": "elegantweb/php-json-rpc",
     "type": "library",
     "license": "MIT",
     "authors": [
