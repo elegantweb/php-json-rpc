@@ -24,7 +24,7 @@ class HttpClient extends Client
 
         $body = $this->encodeRequest($method, $params);
 
-        $response = $this->httpClient->request('POST', '', compact('body', 'header'));
+        $response = $this->httpClient->request('POST', '', compact('body', 'headers'));
 
         return $this->decodeResponse($response);
     }
