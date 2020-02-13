@@ -10,10 +10,9 @@ class HttpClient extends Client
 
     public function __construct($address, array $options = [])
     {
-        $this->httpClient = new GuzzleHttpClient([
-            'base_uri' => $address,
-            ...$options
-        ]);
+        $options['base_uri'] = $address;
+
+        $this->httpClient = new GuzzleHttpClient($options);
     }
 
     public function request($method, array $params = null)
