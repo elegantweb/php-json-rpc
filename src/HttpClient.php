@@ -21,10 +21,12 @@ class HttpClient extends Client
         $headers['Content-Type'] = 'application/json';
         $headers['Connection-Type'] = 'close';
 
-        $body = $this->encodeRequest($method, $params);
+        $request = $this->createRequest($method, $params, uniqid());
 
-        $response = $this->httpClient->request('POST', '', compact('body', 'headers'));
+        $body = $this->encodeRequest($request);
 
-        return $this->decodeResponse($response);
+        $response = $this->httpClient->request('POST', '', compact('body', 'headers'))->getBody();
+
+        return $this->decodeResponse($request, $response);
     }
 }
