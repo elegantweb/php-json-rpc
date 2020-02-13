@@ -21,9 +21,9 @@ abstract class Client
         return json_encode($data);
     }
 
-    public function decodeResponse($raw)
+    public function decodeResponse($response)
     {
-        $data = json_decode($raw, true);
+        $data = json_decode($response, true);
 
         if ($data['jsonrpc'] !== self::VERSION)
             throw new Exception("Invalid Version.");
