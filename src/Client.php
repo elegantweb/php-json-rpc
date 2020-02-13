@@ -1,6 +1,6 @@
 <?php
 
-namespace Elegant\Rpc;
+namespace Elegant\JsonRpc;
 
 use Exception;
 
