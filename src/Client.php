@@ -8,7 +8,18 @@ abstract class Client
 {
     const VERSION = '2.0';
 
-    abstract public function request($method, array $params = null);
+    abstract public function sendRequest($body);
+
+    public function request($method, array $params = null)
+    {
+        $request = $this->createRequest($method, $params, uniqid());
+
+        $body = $this->encodeRequest($request);
+
+        $response = $this->sendRequest($body);
+
+        return $this->decodeResponse($request, $response);
+    }
 
     public function createRequest($method, array $params = null, $id = null)
     {
