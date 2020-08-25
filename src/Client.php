@@ -38,7 +38,7 @@ abstract class Client
 
     public function decodeResponse(array $request, $response)
     {
-        $data = json_decode($response, true);
+        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
         if ($data['jsonrpc'] !== $request['jsonrpc'])
             throw new Exception("Invalid Version.");
