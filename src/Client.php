@@ -2,7 +2,7 @@
 
 namespace Elegant\JsonRpc;
 
-use Exception;
+use UnexpectedValueException;
 
 abstract class Client
 {
@@ -41,15 +41,15 @@ abstract class Client
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
         if ($data['jsonrpc'] !== $request['jsonrpc'])
-            throw new Exception("Invalid Version.");
+            throw new UnexpectedValueException("Invalid Version.");
         if ($data['id'] !== $request['id'])
-            throw new Exception("Invalid ID, Expected: {$id}, Got: {$data['id']}.");
+            throw new UnexpectedValueException("Invalid ID, Expected: {$id}, Got: {$data['id']}.");
         elseif (isset($data['error']))
-            throw new Exception($data['error']['message'], $data['error']['code']);
+            throw new UnexpectedValueException($data['error']['message'], $data['error']['code']);
         elseif (isset($data['result']))
             return $data['result'];
         else
-            throw new Exception("Invalid Response.");
+            throw new UnexpectedValueException("Invalid Response.");
     }
 
     public function __call($method, array $params)
