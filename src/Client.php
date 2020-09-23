@@ -41,9 +41,9 @@ abstract class Client
         $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
 
         if ($data['jsonrpc'] !== $request['jsonrpc'])
-            throw new UnexpectedValueException("Invalid Version.");
+            throw new UnexpectedValueException("Invalid version.");
         if ($data['id'] !== $request['id'])
-            throw new UnexpectedValueException("Invalid ID, Expected: {$id}, Got: {$data['id']}.");
+            throw new UnexpectedValueException("Invalid ID, Expected: {$request['id']}, Got: {$data['id']}.");
         elseif (isset($data['error']))
             throw new UnexpectedValueException($data['error']['message'], $data['error']['code']);
         elseif (isset($data['result']))
