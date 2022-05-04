@@ -14,6 +14,11 @@ class HttpClient extends Client
 
         $this->httpClient = new GuzzleHttpClient($options);
     }
+    
+    public function getHttpClient(): GuzzleHttpClient
+    {
+        return $this->httpClient;
+    }
 
     public function sendRequest($body)
     {
