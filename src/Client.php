@@ -46,7 +46,7 @@ abstract class Client
             throw new UnexpectedValueException("Invalid ID, Expected: {$request['id']}, Got: {$data['id']}.");
         elseif (isset($data['error']))
             throw new UnexpectedValueException($data['error']['message'], $data['error']['code']);
-        elseif (isset($data['result']))
+        elseif (array_key_exists('result', $data))
             return $data['result'];
         else
             throw new UnexpectedValueException("Invalid Response.");
