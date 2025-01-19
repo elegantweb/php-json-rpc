@@ -14,7 +14,7 @@ class HttpClient extends Client
 
         $this->httpClient = new GuzzleHttpClient($options);
     }
-    
+
     public function getHttpClient(): GuzzleHttpClient
     {
         return $this->httpClient;
@@ -24,7 +24,6 @@ class HttpClient extends Client
     {
         $headers = [];
         $headers['Content-Type'] = 'application/json';
-        $headers['Connection-Type'] = 'close';
 
         return $this->httpClient->request('POST', '', compact('headers', 'body'))->getBody();
     }
